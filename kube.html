@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Kubra - A Colorful Valentine!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to top right, #ffafbd, #ffc3a0); /* Soft pink/orange gradient */
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.5s ease-out, transform 1s ease-out;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .signature {
+            font-weight: bold;
+            color: #d81b60;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Base flower styling */
+        .flower {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: bloom 3s ease-out forwards;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Individual flower designs with different colors */
+        .flower.type1 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%23FF6B6B"><circle cx="50" cy="30" r="20"/><circle cx="70" cy="50" r="20"/><circle cx="50" cy="70" r="20"/><circle cx="30" cy="50" r="20"/><circle cx="50" cy="50" r="15" fill="%23FFD93D"/></g></svg>'); /* Red with Yellow Center */
+        }
+
+        .flower.type2 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%238E44AD"><path d="M50,10 Q60,0 70,10 Q80,20 70,30 Q80,40 70,50 Q60,60 50,50 Q40,60 30,50 Q20,40 30,30 Q20,20 30,10 Q40,0 50,10 Z" /><circle cx="50" cy="35" r="10" fill="%23D4AC0D"/></g></svg>'); /* Purple Petal with Gold Center */
+        }
+
+        .flower.type3 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%234CAF50"><path d="M50,10 C65,10 75,25 75,40 C75,55 65,70 50,70 C35,70 25,55 25,40 C25,25 35,10 50,10 Z" /><path d="M50,40 C55,40 60,45 60,50 C60,55 55,60 50,60 C45,60 40,55 40,50 C40,45 45,40 50,40 Z" fill="%23FFEB3B" /></g></svg>'); /* Green Leafy with Yellow Center */
+        }
+
+        @keyframes bloom {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+            100% { opacity: 0.7; transform: scale(1) rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="messageContainer">
+        <h1>Happy Valentine's Day, Kubra! ❤️</h1>
+        <p>Sending you this digital bouquet to brighten your day and remind you how wonderful you are.</p>
+        <p>I hope your day is filled with as much joy as you bring to others!</p>
+        <div class="signature">— Aizaz Ahmad</div>
+    </div>
+
+    <script>
+        const messageContainer = document.getElementById('messageContainer');
+        const numberOfFlowers = 25; // Even more flowers for a richer look!
+        const flowerTypes = ['type1', 'type2', 'type3']; // Our different flower classes
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            
+            // Randomly pick a flower type
+            const randomType = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            flower.classList.add('flower', randomType);
+
+            // Random position
+            const x = Math.random() * 90; // Stay away from very edge
+            const y = Math.random() * 90;
+            flower.style.left = x + 'vw';
+            flower.style.top = y + 'vh';
+
+            // Random size
+            const size = 40 + Math.random() * 60;
+            flower.style.width = size + 'px';
+            flower.style.height = size + 'px';
+
+            // Random animation delay for staggering
+            flower.style.animationDelay = Math.random() * 3 + 's'; 
+
+            document.body.appendChild(flower);
+        }
+
+        // Run when page loads
+        window.onload = () => {
+            // Show message
+            messageContainer.classList.add('show');
+
+            // Create flowers one by one with a slight delay
+            for (let i = 0; i < numberOfFlowers; i++) {
+                setTimeout(createFlower, i * 100); // Faster staggered appearance
+            }
+        };
+    </script>
+</body>
+</html>
